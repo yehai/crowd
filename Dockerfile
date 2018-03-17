@@ -77,7 +77,7 @@ RUN export MYSQL_DRIVER_VERSION=5.1.44 && \
     wget -O /home/${CONTAINER_USER}/SSLPoke.class https://confluence.atlassian.com/kb/files/779355358/779355357/1/1441897666313/SSLPoke.class && \
     chown -R crowd:crowd /home/${CONTAINER_USER}
 
-COPY ./${CROWD_VERSION}/atlassian-extras-*.*.jar "${JIRA_INSTALL}/atlassian-jira/WEB-INF/lib/"
+COPY ./${CROWD_VERSION}/atlassian-extras-*.*.jar "${CROWD_INSTALL}/crowd-webapp/WEB-INF/lib"
 COPY ./hipchat.phoneyou.net.crt /tmp/
 
 ADD splash-context.xml /opt/crowd/webapps/splash.xml
