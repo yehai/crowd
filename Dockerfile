@@ -48,6 +48,8 @@ RUN export MYSQL_DRIVER_VERSION=5.1.44 && \
     # Install database drivers
     rm -f \
       ${CROWD_INSTALL}/apache-tomcat/lib/mysql-connector-java*.jar &&  \
+    rm -f                                               \
+      ${CROWD_INSTALL}/crowd-webapp/WEB-INF/lib/atlassian-extras-*.*.jar &&  \
     wget -O /tmp/mysql-connector-java-${MYSQL_DRIVER_VERSION}.tar.gz \
       http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-${MYSQL_DRIVER_VERSION}.tar.gz && \
     tar xzf /tmp/mysql-connector-java-${MYSQL_DRIVER_VERSION}.tar.gz \
@@ -74,6 +76,10 @@ RUN export MYSQL_DRIVER_VERSION=5.1.44 && \
     # Install atlassian ssl tool
     wget -O /home/${CONTAINER_USER}/SSLPoke.class https://confluence.atlassian.com/kb/files/779355358/779355357/1/1441897666313/SSLPoke.class && \
     chown -R crowd:crowd /home/${CONTAINER_USER}
+
+COPY ./${CROWD_VERSION}/atlassian-extras-*.*.jar "${JIRA_INSTALL}/atlassian-jira/WEB-INF/lib/"
+COPY ./hipchat.phoneyou.net.crt /tmp/
+
 ADD splash-context.xml /opt/crowd/webapps/splash.xml
 RUN chown -R crowd:crowd ${CROWD_HOME} && \
     chown -R crowd:crowd ${CROWD_INSTALL} && \
